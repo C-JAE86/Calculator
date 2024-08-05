@@ -6,12 +6,13 @@ let n = "";
 let n1 = "";
 let op = "";
 let whichOperand = 0;
-let theme = "dark";
+let theme = "";
 let equalscheck = 0;
 let pointCheck = 0;
 let secondPoint = 0;
-
-
+const d = new Date();
+let hour = d.getHours();
+console.log(hour);
 
 const topDisplay = document.getElementById("displayTop");
 // equal.addEventListener("click",operate(op));
@@ -22,7 +23,7 @@ btnEquals.addEventListener("click", (e) => {
         if (n != "") {
             if (n.length > 0 && n1.length > 0) {
                 if (op.length > 0) {
-                    topDisplay.textContent = `${topDisplay.textContent} ${n1}`;
+                    topDisplay.textContent = `${topDisplay.textContent} ${numberWithCommas(n1,4)}`;
                     operand1Text.textContent = "";
                     operand2Text.textContent = "";
                     operator.textContent = "";
@@ -35,6 +36,8 @@ btnEquals.addEventListener("click", (e) => {
         }
     }
 })
+
+
 const row1 = document.getElementById("row1");
 const row2 = document.getElementById("row2");
 const row3 = document.getElementById("row3");
@@ -44,30 +47,10 @@ const mainContainer = document.getElementById("mainContainer");
 const display = document.getElementById("display");
 const lightSwitch = document.getElementById("switch");
 
-if (theme === "dark") {
-    row1.classList.remove("row-dark");
-    row2.classList.remove("row-dark");
-    row3.classList.remove("row-dark");
-    row4.classList.remove("row-dark");
-    row5.classList.remove("row-dark");
-    display.classList.remove("display-dark");
-    mainContainer.classList.remove("main-container-dark");
-    row1.classList.add("row-light");
-    row2.classList.add("row-light");
-    row3.classList.add("row-light");
-    row4.classList.add("row-light");
-    row5.classList.add("row-light");
-    display.classList.add("display-light");
-    mainContainer.classList.add("main-container-light");
-}
-if (theme === "light") {
-    row1.classList.remove("row-light");
-    row2.classList.remove("row-light");
-    row3.classList.remove("row-light");
-    row4.classList.remove("row-light");
-    row5.classList.remove("row-light");
-    display.classList.remove("display-light");
-    mainContainer.classList.remove("main-container-light");
+
+
+if (hour > 20 || hour < 7) {
+    theme = "dark";
     row1.classList.add("row-dark");
     row2.classList.add("row-dark");
     row3.classList.add("row-dark");
@@ -76,11 +59,15 @@ if (theme === "light") {
     display.classList.add("display-dark");
     mainContainer.classList.add("main-container-dark");
 }
-if (theme === "dark") {
-    theme = "light"
-}
 else {
-    theme = "dark";
+    row1.classList.add("row-light");
+    row2.classList.add("row-light");
+    row3.classList.add("row-light");
+    row4.classList.add("row-light");
+    row5.classList.add("row-light");
+    display.classList.add("display-light");
+    mainContainer.classList.add("main-container-light");
+    theme = "light";
 }
 
 
@@ -131,6 +118,50 @@ lightSwitch.addEventListener("click", (e) => {
 
 // When user presses equals first types number , we want Invoke cancel then print number
 //  to clear and start again as we only want to operate on two nubmers each time.
+const text = ""
+function numberWithCommas(text,num) {
+
+    
+    let textNum = Number(text);
+    console.log("n",n);
+    console.log("text",textNum);
+    if (num === 0) {
+        const numberFormatter = new Intl.NumberFormat("en-GB", { style: "decimal", maximumFractionDigits: 20,
+        });
+        let formattedNum = numberFormatter.format(textNum);
+        console.log(formattedNum);
+        operand1Text.textContent = formattedNum;
+
+    }
+    if (num === 1) {
+        const numberFormatter = new Intl.NumberFormat("en-GB", { style: "decimal", maximumFractionDigits: 20,
+        });
+        let formattedNum = numberFormatter.format(textNum);
+        console.log(formattedNum);
+        operand2Text.textContent = formattedNum;
+    }
+    if (num === 2) {
+        const numberFormatter = new Intl.NumberFormat("en-GB", { style: "decimal", maximumFractionDigits: 20, 
+        });
+        let formattedNum = numberFormatter.format(textNum);
+        console.log("format",formattedNum);
+        operand1Text.textContent = formattedNum + "."
+    }
+    if (num === 3) {
+        const numberFormatter = new Intl.NumberFormat("en-GB", { style: "decimal", maximumFractionDigits: 20, 
+        });
+        let formattedNum = numberFormatter.format(textNum);
+        console.log("format",formattedNum);
+        operand1Text.textContent = formattedNum + "."
+    }
+    if (num === 4) {
+        const numberFormatter = new Intl.NumberFormat("en-GB", { style: "decimal", maximumFractionDigits: 20,
+        });
+        let formattedNum = numberFormatter.format(textNum);
+        console.log(formattedNum);
+        return formattedNum;
+    }
+}
 
 
 const btnCancel = document.getElementById("btnFunctionCancel");
@@ -152,6 +183,7 @@ function cancel() {
         topDisplay.textContent = "";
         equalscheck = 0;
         pointCheck = 0;
+        secondPoint = 0;
 
 }
 
@@ -169,27 +201,33 @@ function isNewEquation() {
 const btnDivide = document.getElementById("btnOpDivide");
 btnDivide.addEventListener("click", (e) => {
     if (equalscheck === 0) {
-        if (n != "") {
-            if (secondPoint === 0)
-            pointCheck = 0;
+        if (whichOperand === 1) {
+            op = "divide";
+        }
+        else if (n != "") {
             op = "divide";
             operand1Text.textContent = "";
-            topDisplay.textContent = ` ${n} /`;
+            numberWithCommas(operand1Text.textContent,0);
             whichOperand = 1;
             console.log(op);
         }
+        topDisplay.textContent = ` ${numberWithCommas(n,4)} /`;
     }
 });
 const btnMultiply = document.getElementById("btnOpMultiply");
 btnMultiply.addEventListener("click", (e) => {
     if (equalscheck === 0) {
-        if (n != "") {
+        if (whichOperand === 1) {
+            op = "multiply";
+        }
+        else if (n != "") {
             op = "multiply"
             operand1Text.textContent = "";
-            topDisplay.textContent = ` ${n} *`;
+            numberWithCommas(operand1Text.textContent,0);
             whichOperand = 1;
             console.log(op);
         }
+        topDisplay.textContent = ` ${numberWithCommas(n,4)} *`;
     }
     
         
@@ -197,26 +235,38 @@ btnMultiply.addEventListener("click", (e) => {
 const btnSubtract = document.getElementById("btnOpSubtract");
 btnSubtract.addEventListener("click", (e) => {
     if (equalscheck === 0) {
-        if (n != "") {
+        if (whichOperand === 1) {
+            op = "minus";
+        }
+        else if (n != "") {
         op = "minus"
         operand1Text.textContent = "";
-        topDisplay.textContent = ` ${n} -`;
+        numberWithCommas(operand1Text.textContent,0);
         whichOperand = 1;
         console.log(op);
         }
+        topDisplay.textContent = ` ${numberWithCommas(n,4)} - `;
+        
+        
     }
 });
 const btnPlus = document.getElementById("btnOpPlus");
 btnPlus.addEventListener("click", (e) => {
     
     if (equalscheck === 0) {
-        if (n != "") {
+        if (whichOperand === 1) {
+            op = "plus";
+        }
+        else if (n != "") {
             op = "plus"
             operand1Text.textContent = "";
-            topDisplay.textContent = ` ${n} +`;
+            numberWithCommas(operand1Text.textContent,0);
+
             whichOperand = 1;
             console.log(op);
         }
+        topDisplay.textContent = ` ${numberWithCommas(n,4)} +`;
+
     }
 });
 
@@ -225,13 +275,18 @@ btn7.addEventListener("click", (e) => {
     isNewEquation()
     if (whichOperand === 0) {
         n = n + "7";
-        operand1Text.textContent = n;
+        numberWithCommas(n,0);
+
+
         
         console.log(n)
     }
     else {
         n1 = n1 + "7";
-        operand2Text.textContent = n1;
+
+        numberWithCommas(n1,0);
+
+
     }
 });
 const btn8 = document.getElementById("btnNum8");
@@ -239,14 +294,16 @@ btn8.addEventListener("click", (e) => {
     isNewEquation()
     if (whichOperand === 0) {
         n = n + "8";
-        operand1Text.textContent = n;
+
+        numberWithCommas(n,0);
 
         console.log(n)
 
     }
     else {
         n1 = n1 + "8";
-        operand2Text.textContent = n1;
+
+        numberWithCommas(n1,0);
 
     }
 });
@@ -255,14 +312,16 @@ btn9.addEventListener("click", (e) => {
     isNewEquation()
     if (whichOperand === 0) {
         n = n + "9";
-        operand1Text.textContent = n;
+
+        numberWithCommas(n,0);
 
         console.log(n)
 
     }
     else {
         n1 = n1 + "9";
-        operand2Text.textContent = n1;
+
+        numberWithCommas(n1,0);
 
     }
 });
@@ -271,14 +330,16 @@ btn4.addEventListener("click", (e) => {
     isNewEquation()
     if (whichOperand === 0) {
         n = n + "4";
-        operand1Text.textContent = n;
+
+        numberWithCommas(n,0);
 
         console.log(n)
 
     }
     else {
         n1 = n1 + "4";
-        operand2Text.textContent = n1;
+
+        numberWithCommas(n1,0);
 
     }
 });
@@ -287,14 +348,16 @@ btn5.addEventListener("click", (e) => {
     isNewEquation()
     if (whichOperand === 0) {
         n = n + "5";
-        operand1Text.textContent = n;
+
+        numberWithCommas(n,0);
 
         console.log(n)
 
     }
     else {
         n1 = n1 + "5";
-        operand2Text.textContent = n1;
+
+        numberWithCommas(n1,0);
 
     }
 });
@@ -303,14 +366,17 @@ btn6.addEventListener("click", (e) => {
     isNewEquation()
     if (whichOperand === 0) {
         n = n + "6";
-        operand1Text.textContent = n;
+
+        numberWithCommas(n,0);
 
         console.log(n)
 
     }
     else {
         n1 = n1 + "6";
-        operand2Text.textContent = n1;
+
+        numberWithCommas(n1,0);
+
 
     }
 });
@@ -319,14 +385,16 @@ btn1.addEventListener("click", (e) => {
     isNewEquation()
     if (whichOperand === 0) {
         n = n + "1";
-        operand1Text.textContent = n;
+
+        numberWithCommas(n,0);
 
         console.log(n)
 
     }
     else {
         n1 = n1 + "1";
-        operand2Text.textContent = n1;
+
+        numberWithCommas(n1,0);
 
     }
 });
@@ -335,14 +403,16 @@ btn2.addEventListener("click", (e) => {
     isNewEquation()
     if (whichOperand === 0) {
         n = n + "2";
-        operand1Text.textContent = n;
+
+        numberWithCommas(n,0);
 
         console.log(n)
 
     }
     else {
         n1 = n1 + "2";
-        operand2Text.textContent = n1;
+
+        numberWithCommas(n1,0);
 
     }
 });
@@ -351,14 +421,16 @@ btn3.addEventListener("click", (e) => {
     isNewEquation()
     if (whichOperand === 0) {
         n = n + "3";
-        operand1Text.textContent = n;
+
+        numberWithCommas(n,0);
 
         console.log(n)
 
     }
     else {
         n1 = n1 + "3";
-        operand2Text.textContent = n1;
+
+        numberWithCommas(n1,0);
 
     }
 });
@@ -367,13 +439,15 @@ btn0.addEventListener("click", (e) => {
     isNewEquation()
     if (whichOperand === 0) {
         n = n + "0";
-        operand1Text.textContent = n;
+        numberWithCommas(n,0);
+
         console.log(n)
 
     }
     else {
         n1 = n1 + "0";
-        operand2Text.textContent = n1;
+
+        numberWithCommas(n1,0);
 
     }
 });
@@ -383,7 +457,9 @@ btnDecimal.addEventListener("click", (e) => {
     if (pointCheck === 0) {
         if (whichOperand === 0) {
             n = n + ".";
-            operand1Text.textContent = n;
+            console.log("n:",n);
+            numberWithCommas(n,2);
+
             pointCheck = 1;
             console.log(n)
         }
@@ -392,7 +468,8 @@ btnDecimal.addEventListener("click", (e) => {
         if (whichOperand === 1) {
             if (secondPoint === 0) {
             n1 = n1 + ".";
-            operand2Text.textContent = n1;
+
+                numberWithCommas(n1,3);
             secondPoint = 1;
         
         }
@@ -438,10 +515,10 @@ function operate(operator) {
        total = multiply(n,n1);
     }
     if (operator === "divide") {
-        answer.textContent =
         total = divide(n,n1);
     }
-    answer.textContent = " = " + total;
+    
+    answer.textContent = " = " + numberWithCommas(total,4);
     return total;
 }
 
