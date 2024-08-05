@@ -136,7 +136,7 @@ body {
 
 #displayTopContainer {
     height: 1rem;
-    font-size: 14px;
+    font-size: 20px;
     white-space:nowrap;
 }
 
@@ -145,7 +145,8 @@ body {
     gap:.3rem;
     overflow-x: scroll;
     overflow-y: hidden;
-    font-size: 20px;
+    font-size: 26px;
+    height: 5rem;
 }
 
 #display {
@@ -170,9 +171,10 @@ body {
     display: flex;
     flex-direction: column;
     justify-content: space-between;
-    gap:.3rem;
+    gap:1rem;
     padding:.5rem;
-    height: 5rem;
+    height: 7rem;
+
     /* overflow:scroll; */
     
 }
