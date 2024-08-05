@@ -14,7 +14,6 @@ body {
 
 
 .display-top {
-    background-color: black;
     overflow: scroll;
 }
 
@@ -27,6 +26,7 @@ body {
 #displayTopContainer {
     height: 1rem;
     font-size: 14px;
+    white-space:nowrap;
 }
 
 .display__element__container__bottom{
