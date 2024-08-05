@@ -8,6 +8,33 @@ body {
 }
 .display-container {
     box-sizing: border-box;
+    height:5rem;
+}
+
+
+
+.display-top {
+    background-color: black;
+    overflow: scroll;
+}
+
+.display__element__container__top {
+    font-size: 12px;
+    flex:0 1 auto;
+   
+}
+
+#displayTopContainer {
+    height: 1rem;
+    font-size: 14px;
+}
+
+.display__element__container__bottom{
+    display: flex;
+    gap:.3rem;
+    overflow-x: scroll;
+    overflow-y: hidden;
+    font-size: 20px;
 }
 
 #display {
@@ -30,8 +57,13 @@ body {
 
 .display__element__container {
     display: flex;
+    flex-direction: column;
+    justify-content: space-between;
     gap:.3rem;
     padding:.5rem;
+    height: 5rem;
+    /* overflow:scroll; */
+    
 }
 
 .calc-btn {

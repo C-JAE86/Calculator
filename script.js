@@ -1,67 +1,112 @@
+// Deal with large numbers using scroll.
+// Instead of printing answer at the end of equation
+// print answer in top display element
+
 let n = "";
 let n1 = "";
 let op = "";
 let whichOperand = 0;
-// const equal = document.getElementById("equals");
-// equal.addEventListener("click",(e) => {
-//     operate(op);
-// });
-// let gridCounter = 0;
-// for (i = 1; i < 6; i ++) {
-//     let rowchild = document.getElementById("row" + i).getElementsByTagName("div");
-//     console.log(rowchild.length);
-//     for ( j = 0; j < rowchild.length; j++) {
-//         rowchild[j].id = gridCounter;
-//         gridCounter = gridCounter + 1;
-// }
-// }
 
 
 
+
+const topDisplay = document.getElementById("displayTop");
 // equal.addEventListener("click",operate(op));
 const btnEquals = document.getElementById("btnFunctionEquals")
 btnEquals.addEventListener("click", (e) => {
-    console.log("equals",n.length,n)
-    if (n.length > 0 && n1.length > 0) {
-        if (op.length > 0) {
-            operate(op);
-            console.log("equals");
+    // console.log("equals",n.length,n)
+    if (n != "") {
+        if (n.length > 0 && n1.length > 0) {
+            if (op.length > 0) {
+                topDisplay.textContent = `${topDisplay.textContent} ${n1}`;
+                operand1Text.textContent = "";
+                operand2Text.textContent = "";
+                operator.textContent = "";
+                operate(op);
+                console.log("equals");
+            }
         }
+    
     }
+    
 })
+
+
+// When user presses equals first types number , we want Invoke cancel then print number
+//  to clear and start again as we only want to operate on two nubmers each time.
+
+
+const btnCancel = document.getElementById("btnFunctionCancel");
+btnCancel.addEventListener("click", (e) => {
+    cancel();
+})
+
+function cancel() {
+        console.log("cancel")
+        // All variables global back to default.
+        n = "";
+        n1 = "";
+        op = "";
+        whichOperand = 0;
+        operand1Text.textContent = "";
+        operand2Text.textContent = "";
+        operator.textContent = "";
+        answer.textContent = "";
+        topDisplay.textContent = "";
+
+}
 
 const operand1Text = document.getElementById("operand1");
 const operand2Text = document.getElementById("operand2");
 const operator = document.getElementById("operator");
+const answer = document.getElementById("answer");
+
 
 
 const btnDivide = document.getElementById("btnOpDivide");
 btnDivide.addEventListener("click", (e) => {
-    op = "divide"
-    operator.textContent = "/"
-    whichOperand = 1;
-    console.log(op);
+    if (n != "") {
+        op = "divide"
+        operand1Text.textContent = "";
+        topDisplay.textContent = ` ${n} /`;
+        whichOperand = 1;
+        console.log(op);
+    }
+    
 });
 const btnMultiply = document.getElementById("btnOpMultiply");
 btnMultiply.addEventListener("click", (e) => {
-    op = "multiply"
-    operator.textContent = "*"
-    whichOperand = 1;
-    console.log(op);
+    if (n != "") {
+        op = "multiply"
+        operand1Text.textContent = "";
+        topDisplay.textContent = ` ${n} *`;
+        whichOperand = 1;
+        console.log(op);
+    }
+        
 });
 const btnSubtract = document.getElementById("btnOpSubtract");
 btnSubtract.addEventListener("click", (e) => {
-    op = "minus"
-    operator.textContent = "-"
-    whichOperand = 1;
-    console.log(op);
+    if (n != "") {
+
+    
+        op = "minus"
+        operand1Text.textContent = "";
+        topDisplay.textContent = ` ${n} -`;
+        whichOperand = 1;
+        console.log(op);
+    }
 });
 const btnPlus = document.getElementById("btnOpPlus");
 btnPlus.addEventListener("click", (e) => {
-    op = "plus"
-    operator.textContent = "+"
-    whichOperand = 1;
-    console.log(op);
+    if (n != "") {
+        op = "plus"
+        operand1Text.textContent = "";
+        topDisplay.textContent = ` ${n} +`;
+        whichOperand = 1;
+        console.log(op);
+    }
+    
 });
 
 const btn7 = document.getElementById("btnNum7");
@@ -254,20 +299,22 @@ function divide(num,num1) {
 
 function operate(operator) {
     console.log(operator);
-    // let total = 0;
     if (operator === "plus") {
         console.log("n=",n,"n1",n1)
-        return add(n,n1)
+        total = add(n,n1)
     }
     if (operator === "minus") {
-        return subtract(n,n1);
+        total = subtract(n,n1);
     }
     if (operator === "multiply") {
-       return multiply(n,n1);
+       total = multiply(n,n1);
     }
     if (operator === "divide") {
-        return divide(n,n1);
+        answer.textContent =
+        total = divide(n,n1);
     }
+    answer.textContent = " = " + total;
+    return total;
 }
 
 
