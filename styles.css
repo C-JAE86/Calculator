@@ -86,7 +86,7 @@
     --clr-light-text:#202020;
     --clr-light-primary:#ba181b;
     --clr-light-text-alt:#8ab6d8;
-    --shadow:0 5px 10px rgba(15, 15, 17, 0.05), 0 15px 20px rgba(0, 0, 0, 0.24);
+    --shadow:0 5px 10px rgba(15, 15, 17, 0.05), 0 15px 20px rgba(0, 0, 0, 0.082);
 }
 html {
     align-items: center;
@@ -164,7 +164,7 @@ body {
     justify-content: center;
     align-items: center;
     width:100%;
-    gap:.2rem;
+    gap:.4rem;
 }
 
 .display__element__container {
