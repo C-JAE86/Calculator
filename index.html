@@ -4,13 +4,16 @@
         <meta charset="UTF-8">
         <link rel="stylesheet" href="./styles.css"></link>
         <title>Calculator</title>
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap" rel="stylesheet">
     </head>
     <body>
-        <div class="main-container">
+        <div id="mainContainer" class="main-container main-container-light">
                 <div id="display">
-                    <div class="display__element__container">
+                    <div class="display__element__container display__element__container__dark">
                             <div id="displayTopContainer" class="display-top-container">
-                                <p id="displayTop" class="display-top">0000000000000000000000000000000000000000000000000000000000</p>
+                                <p id="displayTop" class="display-top"></p>
                             </div>
                         <div id="displayBottom" class="display__element__container__bottom">
 
@@ -29,36 +32,38 @@
                         </div>
                 </div>
             </div>
+            <div class="divider-container">
+                <div class="divider"></div>
+            </div>
             <div id="btnContainer">
-                <div id="row1" class="row">
-                    <button id="btn0" class="calc-btn"></button>
-                    <button id="btn1" class="calc-btn"></button>
-                    <button id="btn2" class="calc-btn"></button>
-                    <button id="btnOpDivide" class="calc-btn">/</button>
+                <div id="row1" class="row row-light">
+                    <button id="switch" class="calc-btn">&#x1F4A1;</button>
+                    
+                    <button id="btnOpDivide" class="calc-btn btn-special">/</button>
                 </div>
-                <div id="row2" class="row">
+                <div id="row2" class="row row-light">
                     <button id="btnNum7" class="calc-btn">7</button>
                     <button id="btnNum8" class="calc-btn">8</button>
                     <button id="btnNum9" class="calc-btn">9</button>
-                    <button id="btnOpMultiply" class="calc-btn">*</button>
+                    <button id="btnOpMultiply" class="calc-btn btn-special">*</button>
                 </div>
-                <div id="row3" class="row">
+                <div id="row3" class="row row-light">
                     <button id="btnNum4" class="calc-btn">4</button>
                     <button id="btnNum5" class="calc-btn">5</button>
                     <button id="btnNum6" class="calc-btn">6</button>
-                    <button id="btnOpSubtract" class="calc-btn">-</button>
+                    <button id="btnOpSubtract" class="calc-btn btn-special">-</button>
                 </div>
-                <div id="row4"class="row">
+                <div id="row4"class="row row-light">
                     <button id="btnNum1" class="calc-btn">1</button>
                     <button id="btnNum2" class="calc-btn">2</button>
                     <button id="btnNum3" class="calc-btn">3</button>
-                    <button id="btnOpPlus" class="calc-btn">+</button>
+                    <button id="btnOpPlus" class="calc-btn btn-special">+</button>
                 </div>
-                <div id="row5" class="row">
+                <div id="row5" class="row row-light">
                     <button id="btnNumDecimal" class="calc-btn">.</button>
                     <button id="btnNum0" class="calc-btn">0</button>
                     <button id="btnFunctionCancel" class="calc-btn">C</button>
-                    <button id="btnFunctionEquals" class="calc-btn">=</button>
+                    <button id="btnFunctionEquals" class="calc-btn btn-special">=</button>
                 </div>
             </div>
 

@@ -6,8 +6,8 @@ let n = "";
 let n1 = "";
 let op = "";
 let whichOperand = 0;
-
-
+let theme = "dark";
+let equalscheck = 0;
 
 
 const topDisplay = document.getElementById("displayTop");
@@ -15,22 +15,116 @@ const topDisplay = document.getElementById("displayTop");
 const btnEquals = document.getElementById("btnFunctionEquals")
 btnEquals.addEventListener("click", (e) => {
     // console.log("equals",n.length,n)
-    if (n != "") {
-        if (n.length > 0 && n1.length > 0) {
-            if (op.length > 0) {
-                topDisplay.textContent = `${topDisplay.textContent} ${n1}`;
-                operand1Text.textContent = "";
-                operand2Text.textContent = "";
-                operator.textContent = "";
-                operate(op);
-                console.log("equals");
+    if (equalscheck === 0) {
+        if (n != "") {
+            if (n.length > 0 && n1.length > 0) {
+                if (op.length > 0) {
+                    topDisplay.textContent = `${topDisplay.textContent} ${n1}`;
+                    operand1Text.textContent = "";
+                    operand2Text.textContent = "";
+                    operator.textContent = "";
+                    operate(op);
+                    console.log("equals");
+                    equalscheck = 1;
+                }
             }
+        
         }
-    
     }
+})
+const row1 = document.getElementById("row1");
+const row2 = document.getElementById("row2");
+const row3 = document.getElementById("row3");
+const row4 = document.getElementById("row4");
+const row5 = document.getElementById("row5");
+const mainContainer = document.getElementById("mainContainer");
+const display = document.getElementById("display");
+const lightSwitch = document.getElementById("switch");
+
+if (theme === "dark") {
+    row1.classList.remove("row-dark");
+    row2.classList.remove("row-dark");
+    row3.classList.remove("row-dark");
+    row4.classList.remove("row-dark");
+    row5.classList.remove("row-dark");
+    display.classList.remove("display-dark");
+    mainContainer.classList.remove("main-container-dark");
+    row1.classList.add("row-light");
+    row2.classList.add("row-light");
+    row3.classList.add("row-light");
+    row4.classList.add("row-light");
+    row5.classList.add("row-light");
+    display.classList.add("display-light");
+    mainContainer.classList.add("main-container-light");
+}
+if (theme === "light") {
+    row1.classList.remove("row-light");
+    row2.classList.remove("row-light");
+    row3.classList.remove("row-light");
+    row4.classList.remove("row-light");
+    row5.classList.remove("row-light");
+    display.classList.remove("display-light");
+    mainContainer.classList.remove("main-container-light");
+    row1.classList.add("row-dark");
+    row2.classList.add("row-dark");
+    row3.classList.add("row-dark");
+    row4.classList.add("row-dark");
+    row5.classList.add("row-dark");
+    display.classList.add("display-dark");
+    mainContainer.classList.add("main-container-dark");
+}
+if (theme === "dark") {
+    theme = "light"
+}
+else {
+    theme = "dark";
+}
+
+
+lightSwitch.addEventListener("click", (e) => {
+    if (theme === "dark") {
+        row1.classList.remove("row-dark");
+        row2.classList.remove("row-dark");
+        row3.classList.remove("row-dark");
+        row4.classList.remove("row-dark");
+        row5.classList.remove("row-dark");
+        display.classList.remove("display-dark");
+        mainContainer.classList.remove("main-container-dark");
+        row1.classList.add("row-light");
+        row2.classList.add("row-light");
+        row3.classList.add("row-light");
+        row4.classList.add("row-light");
+        row5.classList.add("row-light");
+        display.classList.add("display-light");
+        mainContainer.classList.add("main-container-light");
+        return theme = "light"
+    }
+    if (theme === "light") {
+        row1.classList.remove("row-light");
+        row2.classList.remove("row-light");
+        row3.classList.remove("row-light");
+        row4.classList.remove("row-light");
+        row5.classList.remove("row-light");
+        display.classList.remove("display-light");
+        mainContainer.classList.remove("main-container-light");
+        row1.classList.add("row-dark");
+        row2.classList.add("row-dark");
+        row3.classList.add("row-dark");
+        row4.classList.add("row-dark");
+        row5.classList.add("row-dark");
+        display.classList.add("display-dark");
+        mainContainer.classList.add("main-container-dark");
+        return theme = "dark";
+    }
+    // if (theme === "dark") {
+    //     theme = "light";
+    // }
+    // else {
+    //     theme = "dark";
+    // }
+    
     
 })
-
 
 // When user presses equals first types number , we want Invoke cancel then print number
 //  to clear and start again as we only want to operate on two nubmers each time.
@@ -53,6 +147,7 @@ function cancel() {
         operator.textContent = "";
         answer.textContent = "";
         topDisplay.textContent = "";
+        equalscheck = 0;
 
 }
 
@@ -61,56 +156,67 @@ const operand2Text = document.getElementById("operand2");
 const operator = document.getElementById("operator");
 const answer = document.getElementById("answer");
 
-
+function isNewEquation() {
+    if (equalscheck === 1) {
+        cancel();
+    }
+}
 
 const btnDivide = document.getElementById("btnOpDivide");
 btnDivide.addEventListener("click", (e) => {
-    if (n != "") {
-        op = "divide"
-        operand1Text.textContent = "";
-        topDisplay.textContent = ` ${n} /`;
-        whichOperand = 1;
-        console.log(op);
+    if (equalscheck === 0) {
+        if (n != "") {
+            op = "divide"
+            operand1Text.textContent = "";
+            topDisplay.textContent = ` ${n} /`;
+            whichOperand = 1;
+            console.log(op);
+        }
     }
-    
 });
 const btnMultiply = document.getElementById("btnOpMultiply");
 btnMultiply.addEventListener("click", (e) => {
-    if (n != "") {
-        op = "multiply"
-        operand1Text.textContent = "";
-        topDisplay.textContent = ` ${n} *`;
-        whichOperand = 1;
-        console.log(op);
+    if (equalscheck === 0) {
+        if (n != "") {
+            op = "multiply"
+            operand1Text.textContent = "";
+            topDisplay.textContent = ` ${n} *`;
+            whichOperand = 1;
+            console.log(op);
+        }
     }
+    
         
 });
 const btnSubtract = document.getElementById("btnOpSubtract");
 btnSubtract.addEventListener("click", (e) => {
-    if (n != "") {
-
-    
+    if (equalscheck === 0) {
+        if (n != "") {
         op = "minus"
         operand1Text.textContent = "";
         topDisplay.textContent = ` ${n} -`;
         whichOperand = 1;
         console.log(op);
+        }
     }
 });
 const btnPlus = document.getElementById("btnOpPlus");
 btnPlus.addEventListener("click", (e) => {
-    if (n != "") {
-        op = "plus"
-        operand1Text.textContent = "";
-        topDisplay.textContent = ` ${n} +`;
-        whichOperand = 1;
-        console.log(op);
-    }
     
+    if (equalscheck === 0) {
+        if (n != "") {
+            op = "plus"
+            operand1Text.textContent = "";
+            topDisplay.textContent = ` ${n} +`;
+            whichOperand = 1;
+            console.log(op);
+        }
+    }
 });
 
 const btn7 = document.getElementById("btnNum7");
 btn7.addEventListener("click", (e) => {
+    isNewEquation()
     if (whichOperand === 0) {
         n = n + "7";
         operand1Text.textContent = n;
@@ -124,6 +230,7 @@ btn7.addEventListener("click", (e) => {
 });
 const btn8 = document.getElementById("btnNum8");
 btn8.addEventListener("click", (e) => {
+    isNewEquation()
     if (whichOperand === 0) {
         n = n + "8";
         operand1Text.textContent = n;
@@ -139,6 +246,7 @@ btn8.addEventListener("click", (e) => {
 });
 const btn9 = document.getElementById("btnNum9");
 btn9.addEventListener("click", (e) => {
+    isNewEquation()
     if (whichOperand === 0) {
         n = n + "9";
         operand1Text.textContent = n;
@@ -154,6 +262,7 @@ btn9.addEventListener("click", (e) => {
 });
 const btn4 = document.getElementById("btnNum4");
 btn4.addEventListener("click", (e) => {
+    isNewEquation()
     if (whichOperand === 0) {
         n = n + "4";
         operand1Text.textContent = n;
@@ -169,6 +278,7 @@ btn4.addEventListener("click", (e) => {
 });
 const btn5 = document.getElementById("btnNum5");
 btn5.addEventListener("click", (e) => {
+    isNewEquation()
     if (whichOperand === 0) {
         n = n + "5";
         operand1Text.textContent = n;
@@ -184,6 +294,7 @@ btn5.addEventListener("click", (e) => {
 });
 const btn6 = document.getElementById("btnNum6");
 btn6.addEventListener("click", (e) => {
+    isNewEquation()
     if (whichOperand === 0) {
         n = n + "6";
         operand1Text.textContent = n;
@@ -199,6 +310,7 @@ btn6.addEventListener("click", (e) => {
 });
 const btn1 = document.getElementById("btnNum1");
 btn1.addEventListener("click", (e) => {
+    isNewEquation()
     if (whichOperand === 0) {
         n = n + "1";
         operand1Text.textContent = n;
@@ -214,6 +326,7 @@ btn1.addEventListener("click", (e) => {
 });
 const btn2 = document.getElementById("btnNum2");
 btn2.addEventListener("click", (e) => {
+    isNewEquation()
     if (whichOperand === 0) {
         n = n + "2";
         operand1Text.textContent = n;
@@ -229,6 +342,7 @@ btn2.addEventListener("click", (e) => {
 });
 const btn3 = document.getElementById("btnNum3");
 btn3.addEventListener("click", (e) => {
+    isNewEquation()
     if (whichOperand === 0) {
         n = n + "3";
         operand1Text.textContent = n;
@@ -244,6 +358,7 @@ btn3.addEventListener("click", (e) => {
 });
 const btn0 = document.getElementById("btnNum0");
 btn0.addEventListener("click", (e) => {
+    isNewEquation()
     if (whichOperand === 0) {
         n = n + "0";
         operand1Text.textContent = n;
@@ -258,6 +373,7 @@ btn0.addEventListener("click", (e) => {
 });
 const btnDecimal = document.getElementById("btnNumDecimal");
 btnDecimal.addEventListener("click", (e) => {
+    isNewEquation()
     if (whichOperand === 0) {
         n = n + ".";
         operand1Text.textContent = n;
