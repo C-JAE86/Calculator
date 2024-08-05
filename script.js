@@ -8,6 +8,9 @@ let op = "";
 let whichOperand = 0;
 let theme = "dark";
 let equalscheck = 0;
+let pointCheck = 0;
+let secondPoint = 0;
+
 
 
 const topDisplay = document.getElementById("displayTop");
@@ -148,6 +151,7 @@ function cancel() {
         answer.textContent = "";
         topDisplay.textContent = "";
         equalscheck = 0;
+        pointCheck = 0;
 
 }
 
@@ -166,7 +170,9 @@ const btnDivide = document.getElementById("btnOpDivide");
 btnDivide.addEventListener("click", (e) => {
     if (equalscheck === 0) {
         if (n != "") {
-            op = "divide"
+            if (secondPoint === 0)
+            pointCheck = 0;
+            op = "divide";
             operand1Text.textContent = "";
             topDisplay.textContent = ` ${n} /`;
             whichOperand = 1;
@@ -374,16 +380,22 @@ btn0.addEventListener("click", (e) => {
 const btnDecimal = document.getElementById("btnNumDecimal");
 btnDecimal.addEventListener("click", (e) => {
     isNewEquation()
-    if (whichOperand === 0) {
-        n = n + ".";
-        operand1Text.textContent = n;
-
-        console.log(n)
-
-    }
-    else {
-        n1 = n1 + ".";
-        operand2Text.textContent = n1;
+    if (pointCheck === 0) {
+        if (whichOperand === 0) {
+            n = n + ".";
+            operand1Text.textContent = n;
+            pointCheck = 1;
+            console.log(n)
+        }
+    
+        }
+        if (whichOperand === 1) {
+            if (secondPoint === 0) {
+            n1 = n1 + ".";
+            operand2Text.textContent = n1;
+            secondPoint = 1;
+        
+        }
 
     }
 });
