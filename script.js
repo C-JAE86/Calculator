@@ -6,12 +6,23 @@ let n = "";
 let n1 = "";
 let op = "";
 let whichOperand = 0;
-let theme = "dark";
+let theme = "";
 let equalscheck = 0;
 let pointCheck = 0;
 let secondPoint = 0;
+let maxDigitFirst = 0;
+let maxDigitSecond = 0;
+let test = 1231415151516.0054;
+const d = new Date()
+const hour = d.getHours();
+console.log(hour)
+console.log(format(test));
 
-
+function format(num) {
+    return num.toString().replace(/^[+-]?\d+/, function(int) {
+      return int.replace(/(\d)(?=(\d{3})+$)/g, '$1,');
+    });
+  }
 
 const topDisplay = document.getElementById("displayTop");
 // equal.addEventListener("click",operate(op));
@@ -22,7 +33,7 @@ btnEquals.addEventListener("click", (e) => {
         if (n != "") {
             if (n.length > 0 && n1.length > 0) {
                 if (op.length > 0) {
-                    topDisplay.textContent = `${topDisplay.textContent} ${n1}`;
+                    topDisplay.textContent = `${topDisplay.textContent} ${format(n1)}`;
                     operand1Text.textContent = "";
                     operand2Text.textContent = "";
                     operator.textContent = "";
@@ -44,30 +55,8 @@ const mainContainer = document.getElementById("mainContainer");
 const display = document.getElementById("display");
 const lightSwitch = document.getElementById("switch");
 
-if (theme === "dark") {
-    row1.classList.remove("row-dark");
-    row2.classList.remove("row-dark");
-    row3.classList.remove("row-dark");
-    row4.classList.remove("row-dark");
-    row5.classList.remove("row-dark");
-    display.classList.remove("display-dark");
-    mainContainer.classList.remove("main-container-dark");
-    row1.classList.add("row-light");
-    row2.classList.add("row-light");
-    row3.classList.add("row-light");
-    row4.classList.add("row-light");
-    row5.classList.add("row-light");
-    display.classList.add("display-light");
-    mainContainer.classList.add("main-container-light");
-}
-if (theme === "light") {
-    row1.classList.remove("row-light");
-    row2.classList.remove("row-light");
-    row3.classList.remove("row-light");
-    row4.classList.remove("row-light");
-    row5.classList.remove("row-light");
-    display.classList.remove("display-light");
-    mainContainer.classList.remove("main-container-light");
+if (hour < 7 || hour > 20) {
+    theme = "dark"
     row1.classList.add("row-dark");
     row2.classList.add("row-dark");
     row3.classList.add("row-dark");
@@ -76,6 +65,51 @@ if (theme === "light") {
     display.classList.add("display-dark");
     mainContainer.classList.add("main-container-dark");
 }
+
+if (hour > 6 && hour < 21) {
+    theme = "light"
+    row1.classList.add("row-light");
+    row2.classList.add("row-light");
+    row3.classList.add("row-light");
+    row4.classList.add("row-light");
+    row5.classList.add("row-light");
+    display.classList.add("display-light");
+    mainContainer.classList.add("main-container-light");
+}
+
+
+// if (theme === "dark") {
+//     row1.classList.remove("row-dark");
+//     row2.classList.remove("row-dark");
+//     row3.classList.remove("row-dark");
+//     row4.classList.remove("row-dark");
+//     row5.classList.remove("row-dark");
+//     display.classList.remove("display-dark");
+//     mainContainer.classList.remove("main-container-dark");
+//     row1.classList.add("row-light");
+//     row2.classList.add("row-light");
+//     row3.classList.add("row-light");
+//     row4.classList.add("row-light");
+//     row5.classList.add("row-light");
+//     display.classList.add("display-light");
+//     mainContainer.classList.add("main-container-light");
+// }
+// if (theme === "light") {
+//     row1.classList.remove("row-light");
+//     row2.classList.remove("row-light");
+//     row3.classList.remove("row-light");
+//     row4.classList.remove("row-light");
+//     row5.classList.remove("row-light");
+//     display.classList.remove("display-light");
+//     mainContainer.classList.remove("main-container-light");
+//     row1.classList.add("row-dark");
+//     row2.classList.add("row-dark");
+//     row3.classList.add("row-dark");
+//     row4.classList.add("row-dark");
+//     row5.classList.add("row-dark");
+//     display.classList.add("display-dark");
+//     mainContainer.classList.add("main-container-dark");
+
 if (theme === "dark") {
     theme = "light"
 }
@@ -152,7 +186,9 @@ function cancel() {
         topDisplay.textContent = "";
         equalscheck = 0;
         pointCheck = 0;
-
+        secondPoint = 0;
+        maxDigitFirst = 0;
+        maxDigitSecond = 0;
 }
 
 const operand1Text = document.getElementById("operand1");
@@ -170,11 +206,10 @@ const btnDivide = document.getElementById("btnOpDivide");
 btnDivide.addEventListener("click", (e) => {
     if (equalscheck === 0) {
         if (n != "") {
-            if (secondPoint === 0)
             pointCheck = 0;
             op = "divide";
             operand1Text.textContent = "";
-            topDisplay.textContent = ` ${n} /`;
+            topDisplay.textContent = ` ${format(n)} /`;
             whichOperand = 1;
             console.log(op);
         }
@@ -186,7 +221,7 @@ btnMultiply.addEventListener("click", (e) => {
         if (n != "") {
             op = "multiply"
             operand1Text.textContent = "";
-            topDisplay.textContent = ` ${n} *`;
+            topDisplay.textContent = ` ${format(n)} *`;
             whichOperand = 1;
             console.log(op);
         }
@@ -200,7 +235,7 @@ btnSubtract.addEventListener("click", (e) => {
         if (n != "") {
         op = "minus"
         operand1Text.textContent = "";
-        topDisplay.textContent = ` ${n} -`;
+        topDisplay.textContent = ` ${format(n)} -`;
         whichOperand = 1;
         console.log(op);
         }
@@ -213,7 +248,7 @@ btnPlus.addEventListener("click", (e) => {
         if (n != "") {
             op = "plus"
             operand1Text.textContent = "";
-            topDisplay.textContent = ` ${n} +`;
+            topDisplay.textContent = ` ${format(n)} +`;
             whichOperand = 1;
             console.log(op);
         }
@@ -224,29 +259,42 @@ const btn7 = document.getElementById("btnNum7");
 btn7.addEventListener("click", (e) => {
     isNewEquation()
     if (whichOperand === 0) {
-        n = n + "7";
-        operand1Text.textContent = n;
-        
-        console.log(n)
+        if (maxDigitFirst < 18) {
+
+            n = n + "7";
+            let displayText = n;
+            displayText = format(displayText);
+            console.log(displayText);
+            operand1Text.textContent = displayText;
+            console.log(n)
+            maxDigitFirst += 1;
+            console.log(maxDigitFirst);
+        }
     }
-    else {
-        n1 = n1 + "7";
-        operand2Text.textContent = n1;
-    }
+    else if (maxDigitSecond < 18) {
+
+            n1 = n1 + "7";
+            operand2Text.textContent = format(n1);
+            maxDigitSecond += 1;
+        }
+    
 });
 const btn8 = document.getElementById("btnNum8");
 btn8.addEventListener("click", (e) => {
     isNewEquation()
     if (whichOperand === 0) {
-        n = n + "8";
-        operand1Text.textContent = n;
+        if (maxDigitFirst < 18) {
+            n = n + "8";
+            operand1Text.textContent = format(n);
+            console.log(n)
+            
+        }
 
-        console.log(n)
-
+        
     }
-    else {
+    else if ( maxDigitSecond < 18) {
         n1 = n1 + "8";
-        operand2Text.textContent = n1;
+        operand2Text.textContent = format(n1);
 
     }
 });
@@ -254,15 +302,18 @@ const btn9 = document.getElementById("btnNum9");
 btn9.addEventListener("click", (e) => {
     isNewEquation()
     if (whichOperand === 0) {
-        n = n + "9";
-        operand1Text.textContent = n;
+        if (maxDigitFirst < 18) {
+            n = n + "9";
+            operand1Text.textContent = format(n);
+            console.log(n)
+            
+        }
 
-        console.log(n)
-
+        
     }
-    else {
+    else if ( maxDigitSecond < 18) {
         n1 = n1 + "9";
-        operand2Text.textContent = n1;
+        operand2Text.textContent = format(n1);
 
     }
 });
@@ -270,15 +321,18 @@ const btn4 = document.getElementById("btnNum4");
 btn4.addEventListener("click", (e) => {
     isNewEquation()
     if (whichOperand === 0) {
-        n = n + "4";
-        operand1Text.textContent = n;
+        if (maxDigitFirst < 18) {
+            n = n + "4";
+            operand1Text.textContent = format(n);
+            console.log(n)
+            
+        }
 
-        console.log(n)
-
+        
     }
-    else {
+    else if ( maxDigitSecond < 18) {
         n1 = n1 + "4";
-        operand2Text.textContent = n1;
+        operand2Text.textContent = format(n1);
 
     }
 });
@@ -286,15 +340,18 @@ const btn5 = document.getElementById("btnNum5");
 btn5.addEventListener("click", (e) => {
     isNewEquation()
     if (whichOperand === 0) {
-        n = n + "5";
-        operand1Text.textContent = n;
+        if (maxDigitFirst < 18) {
+            n = n + "5";
+            operand1Text.textContent = format(n);
+            console.log(n)
+            
+        }
 
-        console.log(n)
-
+        
     }
-    else {
+    else if ( maxDigitSecond < 18) {
         n1 = n1 + "5";
-        operand2Text.textContent = n1;
+        operand2Text.textContent = format(n1);
 
     }
 });
@@ -302,15 +359,18 @@ const btn6 = document.getElementById("btnNum6");
 btn6.addEventListener("click", (e) => {
     isNewEquation()
     if (whichOperand === 0) {
-        n = n + "6";
-        operand1Text.textContent = n;
+        if (maxDigitFirst < 18) {
+            n = n + "6";
+            operand1Text.textContent = format(n);
+            console.log(n)
+            
+        }
 
-        console.log(n)
-
+        
     }
-    else {
+    else if ( maxDigitSecond < 18) {
         n1 = n1 + "6";
-        operand2Text.textContent = n1;
+        operand2Text.textContent = format(n1);
 
     }
 });
@@ -318,15 +378,18 @@ const btn1 = document.getElementById("btnNum1");
 btn1.addEventListener("click", (e) => {
     isNewEquation()
     if (whichOperand === 0) {
-        n = n + "1";
-        operand1Text.textContent = n;
+        if (maxDigitFirst < 18) {
+            n = n + "1";
+            operand1Text.textContent = format(n);
+            console.log(n)
+            
+        }
 
-        console.log(n)
-
+        
     }
-    else {
+    else if ( maxDigitSecond < 18) {
         n1 = n1 + "1";
-        operand2Text.textContent = n1;
+        operand2Text.textContent = format(n1);
 
     }
 });
@@ -334,15 +397,18 @@ const btn2 = document.getElementById("btnNum2");
 btn2.addEventListener("click", (e) => {
     isNewEquation()
     if (whichOperand === 0) {
-        n = n + "2";
-        operand1Text.textContent = n;
+        if (maxDigitFirst < 18) {
+            n = n + "2";
+            operand1Text.textContent = format(n);
+            console.log(n)
+            
+        }
 
-        console.log(n)
-
+        
     }
-    else {
+    else if ( maxDigitSecond < 18) {
         n1 = n1 + "2";
-        operand2Text.textContent = n1;
+        operand2Text.textContent = format(n1);
 
     }
 });
@@ -350,15 +416,18 @@ const btn3 = document.getElementById("btnNum3");
 btn3.addEventListener("click", (e) => {
     isNewEquation()
     if (whichOperand === 0) {
-        n = n + "3";
-        operand1Text.textContent = n;
+        if (maxDigitFirst < 18) {
+            n = n + "3";
+            operand1Text.textContent = format(n);
+            console.log(n)
+            
+        }
 
-        console.log(n)
-
+        
     }
-    else {
+    else if ( maxDigitSecond < 18) {
         n1 = n1 + "3";
-        operand2Text.textContent = n1;
+        operand2Text.textContent = format(n1);
 
     }
 });
@@ -366,14 +435,20 @@ const btn0 = document.getElementById("btnNum0");
 btn0.addEventListener("click", (e) => {
     isNewEquation()
     if (whichOperand === 0) {
-        n = n + "0";
-        operand1Text.textContent = n;
-        console.log(n)
+        if (maxDigitFirst < 18) {
+            n = n + "0";
+            operand1Text.textContent = format(n);
 
+            
+        }
+        console.log(n)
     }
     else {
-        n1 = n1 + "0";
-        operand2Text.textContent = n1;
+        if ( maxDigitSecond < 18) {
+            n1 = n1 + "0";
+            operand2Text.textContent = format(n1);
+
+        }
 
     }
 });
@@ -382,22 +457,27 @@ btnDecimal.addEventListener("click", (e) => {
     isNewEquation()
     if (pointCheck === 0) {
         if (whichOperand === 0) {
-            n = n + ".";
-            operand1Text.textContent = n;
+            if (maxDigitFirst < 18) {
+                operand1Text.textContent = format(n) + ".";
+                n = n + ".";
+                console.log(n)
+                
+            }
             pointCheck = 1;
-            console.log(n)
         }
-    
-        }
-        if (whichOperand === 1) {
-            if (secondPoint === 0) {
-            n1 = n1 + ".";
-            operand2Text.textContent = n1;
-            secondPoint = 1;
-        
-        }
-
     }
+    if (whichOperand === 1) {
+        if ( maxDigitSecond < 18) {
+            if (secondPoint === 0) {
+                console.log("here");
+            operand2Text.textContent = format(n1) + ".";
+            n1 = n1 + ".";
+            secondPoint = 1;
+            }
+        
+    }
+}
+
 });
 
 function add(num,num1) {
@@ -438,10 +518,9 @@ function operate(operator) {
        total = multiply(n,n1);
     }
     if (operator === "divide") {
-        answer.textContent =
         total = divide(n,n1);
     }
-    answer.textContent = " = " + total;
+    answer.textContent = " = " + format(total);
     return total;
 }
 
