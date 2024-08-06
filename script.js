@@ -17,6 +17,9 @@ const d = new Date()
 const hour = d.getHours();
 console.log(hour)
 console.log(format(test));
+let lastAnswer = 0;
+let liquidMode = 0;
+let isFirstSum = 1;
 
 function format(num) {
     return num.toString().replace(/^[+-]?\d+/, function(int) {
@@ -29,6 +32,10 @@ const topDisplay = document.getElementById("displayTop");
 const btnEquals = document.getElementById("btnFunctionEquals")
 btnEquals.addEventListener("click", (e) => {
     // console.log("equals",n.length,n)
+    equals();
+})
+
+function equals() {
     if (equalscheck === 0) {
         if (n != "") {
             if (n.length > 0 && n1.length > 0) {
@@ -45,7 +52,8 @@ btnEquals.addEventListener("click", (e) => {
         
         }
     }
-})
+}
+
 const row1 = document.getElementById("row1");
 const row2 = document.getElementById("row2");
 const row3 = document.getElementById("row3");
@@ -238,14 +246,32 @@ btnSubtract.addEventListener("click", (e) => {
 });
 const btnPlus = document.getElementById("btnOpPlus");
 btnPlus.addEventListener("click", (e) => {
+    let n1len = n1.length;
+    console.log(n1len)
+    if (isFirstSum === 0) {
+        n = lastAnswer; 
+        op = "plus";
+        topDisplay.textContent = `${format(n)}`;
+        operand1Text.textContent = "";
+        operand2Text.textContent = "";
+        operator.textContent = "";
+        answer.textContent = "";
+        console.log(n1.length);
+        if (n1len > 0) {
+            operate(op)
+        }
+        console.log("equals");
+        equalscheck = 1;
+        } 
     
-    if (equalscheck === 0) {
+    if (isFirstSum === 1) {
         if (n != "") {
             op = "plus"
             operand1Text.textContent = "";
             topDisplay.textContent = ` ${format(n)} +`;
             whichOperand = 1;
             console.log(op);
+            isFirstSum = 0;
         }
     }
 });
@@ -266,12 +292,13 @@ btn7.addEventListener("click", (e) => {
             console.log(maxDigitFirst);
         }
     }
-    else if (maxDigitSecond < 18) {
-
-            n1 = n1 + "7";
-            operand2Text.textContent = format(n1);
-            maxDigitSecond += 1;
-        }
+    if (isFirstSum === 0) {
+        n1 = n1 + "7";
+        let displayText = format(n1);
+        operand1Text.textContent = displayText;
+        topDisplay.textContent = topDisplay.textContent;
+        maxDigitFirst +=1;
+    }
     
 });
 const btn8 = document.getElementById("btnNum8");
@@ -515,6 +542,9 @@ function operate(operator) {
     if (operator === "divide") {
         total = divide(n,n1);
     }
+    lastAnswer = total;
+    isFirstSum = 0;
+    n1 = "";
     answer.textContent = " = " + format(total);
     return total;
 }
