@@ -110,12 +110,7 @@ if (hour > 6 && hour < 21) {
 //     display.classList.add("display-dark");
 //     mainContainer.classList.add("main-container-dark");
 
-if (theme === "dark") {
-    theme = "light"
-}
-else {
-    theme = "dark";
-}
+
 
 
 lightSwitch.addEventListener("click", (e) => {
