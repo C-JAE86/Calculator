@@ -71,7 +71,21 @@
   } */
 
 
+.outer {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
 
+.description {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+h3 {
+    text-align: center;
+}
 :root {
     /* Dark mode colors */
     --clr-dark-background: #202020;
@@ -101,8 +115,8 @@ body {
     flex:auto;
     flex-direction: column;
     background-color: #d6d6d6;
-    justify-content: center;
     align-items: center;
+    justify-content: center;
 }
 #row1 {
     justify-content: space-between;
@@ -224,6 +238,8 @@ body {
     height: 38rem;
     /* border:2px solid black; */
     border-radius: 20px;
+    align-items: center;
+    justify-content: center;
 
 }
 
